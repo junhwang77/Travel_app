@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Login and Registration</title>
+    </head>
+    <body>
+        <h1>Travel App</h1>
+        {% for error in request.session.errors %}
+          <p>{{error}}</p>
+        {% endfor %}
+        <h2>Login</h2>
+        <form class="" action="{% url 'login_reg:login' %}" method="post">
+            {% csrf_token %}
+            <p>Email:</p>
+            <input type="text" name="email" value="">
+            <p>Password:</p>
+            <input type="password" name="password" value="">
+            <input type="submit" name="" value="Login">
+        </form>
+        <h2>Registration</h2>
+        <form class="" action="{% url 'login_reg:create' %}" method="post">
+            {% csrf_token %}
+            <p>First Name:</p>
+            <input type="text" name="first_name" value="">
+            <p>Last Name:</p>
+            <input type="text" name="last_name" value="">
+            <p>Email:</p>
+            <input type="text" name="email" value="">
+            <p>Password:</p>
+            <input type="password" name="password" value="">
+            <p>Confirm Password:</p>
+            <input type="password" name="conf_pw" value="">
+            <input type="submit" name="" value="Register">
+        </form>
+    </body>
+</html>

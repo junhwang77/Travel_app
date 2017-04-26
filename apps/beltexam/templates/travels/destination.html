@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Destination Profile</title>
+    </head>
+    <body>
+        <a href="{% url 'travels:index' %}">Home</a>
+        <a href="{% url 'login_reg:index' %}">Log Out</a>
+        <h1>{{name}}</h1>
+        <p>Planned By: {{first_name}} {{last_name}}</p>
+        <p>Description: {{description}}</p>
+        <p>Travel Date From: {{start}}</p>
+        <p>Travel Date To: {{end}}</p>
+        <h1>Users joining the trip</h1>
+        {% for user in other_users %}
+            <p>
+                {% for use in user.travel_id.all%}
+                    {{use.first_name}} {{use.last_name}}<br />
+                {% endfor %}
+            </p>
+        {% endfor %}
+    </body>
+</html>

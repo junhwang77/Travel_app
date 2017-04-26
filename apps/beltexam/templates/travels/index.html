@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Travels Home Page</title>
+    </head>
+    <body>
+        <a href="{% url 'login_reg:index' %}">Log Out</a>
+        <h1>Hello, {{request.session.first_name}}!</h1>
+        <h4>Your Trip Schedule</h4>
+        <table>
+            <tr>
+                <th>Destination |</th>
+                <th>Travel Start Date |</th>
+                <th>Travel End Date |</th>
+                <th>Description |</th>
+                <th>Trip Planner |</th>
+            </tr>
+            {% for schedule in schedules %}
+            <tr>
+                <td><a href="{% url 'travels:destination' id=schedule.id %}">{{schedule.name}}</a></td>
+                <td>{{schedule.travel_start}}</td>
+                <td>{{schedule.travel_end}}</td>
+                <td>{{schedule.description}}</td>
+                <td>{{schedule.planner_id.first_name}} {{schedule.planner_id.last_name}}</td>
+                <td><form class="" action="{% url 'travels:remove' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="place_id" value="{{schedule.id}}">
+                    <input type="hidden" name="logged_id" value="{{request.session.logged_id}}">
+                    <input type="hidden" name="planner_id" value="schedule.planner_id.id">
+                    <input type="submit" name="" value="Im Out...">
+                </form></td>
+            </tr>
+            {% endfor %}
+        </table>
+        <h4>Other User's Travel Plans</h4>
+        <table>
+            <tr>
+                <th>Name |</th>
+                <th>Destination |</th>
+                <th>Travel Start Date |</th>
+                <th>Travel End Date |</th>
+                <th>Do You Want to Join? |</th>
+            </tr>
+            {% for other in others %}
+            <tr>
+                <td>{{other.planner_id.first_name}} {{other.planner_id.last_name}}</td>
+                <td><a href="{% url 'travels:destination' id=other.id %}">{{other.name}}</a></td>
+                <td>{{other.travel_start}}</td>
+                <td>{{other.travel_end}}</td>
+                <td><form class="" action="{% url 'travels:join' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="place_id" value="{{other.id}}">
+                    <input type="hidden" name="logged_id" value="{{request.session.logged_id}}">
+                    <input type="submit" name="" value="Join!">
+                </form></td>
+            </tr>
+            {% endfor %}
+        </table>
+        <form class="" action="{% url 'travels:add' %}" method="post">
+            {% csrf_token %}
+            <input type="submit" name="" value="Add Travel Plan">
+            <input type="hidden" name="logged_id" value="{{request.session.logged_id}}">
+        </form>
+    </body>
+</html>

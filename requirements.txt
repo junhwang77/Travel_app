@@ -1,0 +1,9 @@
+bcrypt==3.1.2
+cffi==1.9.1
+Django==1.10.5
+-e git://github.com/dwaiter/django-bcrypt.git@913d86b2ba71334fd54670c6f0050bec02689654#egg=django_bcrypt
+django-extensions==1.7.5
+py-bcrypt==0.4
+pycparser==2.17
+pyparsing==2.1.10
+six==1.10.0

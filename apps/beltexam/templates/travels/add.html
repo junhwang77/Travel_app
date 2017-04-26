@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>jQuery UI Datepicker - Default functionality</title>
+      <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+      <link rel="stylesheet" href="/resources/demos/style.css">
+      <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+      <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+      <script>
+      $( function() {
+        $( "#datepicker,#datepickerII" ).datepicker({ dateFormat: 'yy-mm-dd' });
+      } );
+      </script>
+    </head>
+    <body>
+        <a href="{% url 'travels:index' %}">Home</a>
+        <a href="{% url 'login_reg:index' %}">Log Out</a>
+        <h1>Add a Trip</h1>
+        {% for error in request.session.errors %}
+          <p>{{error}}</p>
+        {% endfor %}
+        <form class="" action="{% url 'travels:create' %}" method="post">
+            {% csrf_token %}
+            <h3>Destination:</h3>
+            <input type="text" name="name" value="">
+            <h3>Description:</h3>
+            <input type="text" name="description" value="">
+            <h3>Travel Date From:</h3>
+            <input type="text" name="travel_start" id="datepicker">
+            <h3>Travel Date To:</h3>
+            <input type="text" name="travel_end" id="datepickerII">
+            <input type="submit" name="" value="Add">
+            <input type="hidden" name="logged_id" value="{{request.session.logged_id}}">
+        </form>
+    </body>
+</html>
